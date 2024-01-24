@@ -2,4 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="darkBlue">#26406A</color>
+    <color name="textColorLight">#ABABAB</color>
+    <color name="ripple_color">#8b8989</color>
 </resources>

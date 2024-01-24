@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="@color/ripple_color">
+    <item>
+        <vector android:height="60dp" android:width="230dp" android:viewportWidth="230" android:viewportHeight="60">
+            <path android:fillColor="#d8e0e8" android:pathData="M20,0L210,0A20,20 0,0 1,230 20L230,40A20,20 0,0 1,210 60L20,60A20,20 0,0 1,0 40L0,20A20,20 0,0 1,20 0z"/>
+        </vector>
+    </item>
+</ripple>
