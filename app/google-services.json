@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "175610382019",
+    "firebase_url": "https://home-61f94-default-rtdb.firebaseio.com",
+    "project_id": "home-61f94",
+    "storage_bucket": "home-61f94.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:175610382019:android:4ca3d95d480a4ff1a08476",
+        "android_client_info": {
+          "package_name": "com.example.securehome"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAInd-1uG1hKm1xsqgOMknXoGCJSTGJP0M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
