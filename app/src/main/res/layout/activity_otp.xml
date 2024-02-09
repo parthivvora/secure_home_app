@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
+    android:background="@color/white"
     android:orientation="vertical"
     android:gravity="center"
     tools:context=".OtpActivity">
@@ -22,7 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/enter_the_otp_sent_to_91_1234567890"
-        android:textSize="18sp"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
         android:textColor="@color/textColorLight" />
 
     <com.chaos.view.PinView
@@ -37,6 +39,7 @@
         android:itemBackground="@color/white"
         android:layout_gravity="center"
         android:inputType="number"
+        app:itemSpacing="20dp"
         android:cursorVisible="true"
         app:hideLineWhenFilled="false"
         app:itemRadius="10dp"
@@ -50,6 +53,6 @@
         android:layout_height="wrap_content"
         style="@style/Widget.Material3.Button"
         android:text="@string/verify"
-        />
+        android:layout_marginTop="30dp"/>
 
 </LinearLayout>
