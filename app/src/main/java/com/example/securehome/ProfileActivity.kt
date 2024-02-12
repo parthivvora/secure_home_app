@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import com.example.securehome.dataModel.UserDataModel
 import com.example.securehome.databinding.ActivityProfileBinding
@@ -110,7 +111,7 @@ class ProfileActivity : AppCompatActivity() {
         })
     }
 
-//    Update user profile data
+    //    Update user profile data
     private fun updateUserProfile(id: String?) {
         val name = binding.updateName.text.toString()
         val contact = binding.updateContact.text.toString()
@@ -156,7 +157,7 @@ class ProfileActivity : AppCompatActivity() {
         })
     }
 
-//    Get User profile data
+    //    Get User profile data
     private fun getUserProfileData(id: String?) {
         val database = FirebaseDatabase.getInstance().getReference("user").child(id.toString())
         database.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -187,4 +188,7 @@ class ProfileActivity : AppCompatActivity() {
         })
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
 }

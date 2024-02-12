@@ -8,14 +8,14 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         android:fillViewport="true"
-        tools:context=".VisitorUserActivity">
+        tools:context=".HistoryUserActivity">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/visitorAppBar"
+                android:id="@+id/historyAppBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/darkBlue"
@@ -38,7 +38,7 @@
                 android:id="@+id/visitorUserProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/visitorAppBar"
+                android:layout_below="@+id/historyAppBar"
                 android:layout_marginTop="40dp"
                 android:gravity="center">
 
@@ -312,5 +312,4 @@
         </RelativeLayout>
 
     </ScrollView>
-
 </layout>

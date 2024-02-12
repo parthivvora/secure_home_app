@@ -6,17 +6,17 @@ import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
-import com.example.securehome.databinding.ActivityVisitorUserBinding
+import com.example.securehome.databinding.ActivityHistoryUserBinding
 
-class VisitorUserActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityVisitorUserBinding
+class HistoryUserActivity : AppCompatActivity() {
+    lateinit var binding: ActivityHistoryUserBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityVisitorUserBinding.inflate(layoutInflater)
+        binding = ActivityHistoryUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.backBtn.setOnClickListener {
-            startActivity(Intent(this, VisitorActivity::class.java))
+            startActivity(Intent(this, HistoryActivity::class.java))
             finish()
         }
 
@@ -52,7 +52,7 @@ class VisitorUserActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        startActivity(Intent(this@VisitorUserActivity, VisitorActivity::class.java))
+        startActivity(Intent(this@HistoryUserActivity, HistoryActivity::class.java))
         finish()
     }
 }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -9,10 +8,10 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="20dp"
         app:cardElevation="10dp"
-        app:cardMaxElevation="10dp"
-        android:layout_marginHorizontal="16dp">
+        app:cardMaxElevation="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,9 +24,9 @@
                 android:id="@+id/visitorImage"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/user"
                 android:layout_gravity="center"
-                android:contentDescription="@string/visitor_image" />
+                android:contentDescription="@string/visitor_image"
+                android:src="@drawable/visit_icon" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -41,35 +40,17 @@
                     android:id="@+id/visitDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/_8_aug_2023" />
+                    android:text="@string/new_visitor_xyz_arrived_at_gate"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/visitInTime"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:text="@string/_7_46_pm" />
 
-                    <TextView
-                        android:id="@+id/visitInTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/_7_46_pm" />
-
-                    <TextView
-                        android:id="@+id/visitOutTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="14dp"
-                        android:text="@string/_8_00_pm" />
-                </LinearLayout>
             </LinearLayout>
-
-            <ImageView
-                android:id="@+id/viewVisitorDataIcon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:src="@drawable/view_data_icon"
-                android:contentDescription="@string/eye_icon" />
 
         </LinearLayout>
 

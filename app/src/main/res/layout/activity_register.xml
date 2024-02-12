@@ -32,6 +32,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/userName"
+                android:inputType="text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
@@ -48,6 +49,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/email"
+                android:inputType="textEmailAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
@@ -64,6 +66,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password"
+                android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
@@ -80,6 +83,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/contact"
+                android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
@@ -96,6 +100,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/buildingName"
+                android:inputType="text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
@@ -112,6 +117,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/flatNo"
+                android:inputType="numberDecimal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"

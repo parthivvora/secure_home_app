@@ -11,7 +11,9 @@
         android:required="false" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
 
@@ -26,13 +28,32 @@
         android:theme="@style/Base.Theme.SecureHome"
         tools:targetApi="31">
         <activity
+            android:name=".NotificationActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".HistoryUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TermsConditionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PrivacyPolicyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HistoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".VisitorUserActivity"
             android:exported="false" />
         <activity
             android:name=".VisitorActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".ProfileActivity"
             android:exported="false" />
@@ -44,7 +65,7 @@
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".SplashActivity"
             android:exported="false"
@@ -52,12 +73,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Base.Theme.SecureHome" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:theme="@style/Base.Theme.SecureHome">
 
         </activity>
 

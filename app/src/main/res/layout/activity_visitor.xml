@@ -7,6 +7,7 @@
     android:background="@color/visitor_bg_color"
     tools:context=".VisitorActivity">
 
+    <!-- App bar -->
     <LinearLayout
         android:id="@+id/visitorAppBar"
         android:layout_width="match_parent"
@@ -23,16 +24,53 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/ic_arrow_back" />
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="@string/back_button_icon" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="History"
+            android:gravity="center_horizontal"
+            android:text="@string/visitor"
             android:textColor="@color/white"
-            android:textSize="22dp" />
+            android:textSize="22sp" />
 
+    </LinearLayout>
+
+    <!-- This is text for no data found -->
+    <TextView
+        android:id="@+id/noDataTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/visitorAppBar"
+        android:layout_marginTop="40dp"
+        android:gravity="center_horizontal"
+        android:text="@string/no_visitor_data_found_for_today"
+        android:textSize="22sp"
+        android:visibility="gone" />
+
+    <!-- Progress bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/noDataTextView"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/loadingTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/loading"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -40,6 +78,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/visitorAppBar"
-        android:layout_margin="20dp" />
+        android:layout_marginTop="20dp" />
 
 </RelativeLayout>

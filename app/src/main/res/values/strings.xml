@@ -24,4 +24,13 @@
     <string name="close">close</string>
     <string name="welcome_to_secure_home">Welcome to secure home</string>
     <string name="cancel_icon">cancel_icon</string>
+    <string name="visitor_image">visitor_image</string>
+    <string name="_7_46_pm">7:46 PM</string>
+    <string name="_8_aug_2023">8 Aug 2023</string>
+    <string name="_8_00_pm">8:00 PM</string>
+    <string name="eye_icon">eye_icon</string>
+    <string name="loading">Loading...</string>
+    <string name="no_visitor_data_found_for_today">No visitor data found for today</string>
+    <string name="back_button_icon">back_button_icon</string>
+    <string name="new_visitor_xyz_arrived_at_gate">New visitor xyz arrived at gate</string>
 </resources>
