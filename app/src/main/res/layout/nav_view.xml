@@ -36,6 +36,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
+                        android:src="@drawable/user_profile_avatar"
                         app:shapeAppearanceOverlay="@style/user_image_circular" />
 
                 </FrameLayout>
@@ -57,7 +58,8 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:contentDescription="user_icon"
-                            android:scaleType="centerCrop"/>
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/user_icon" />
 
                         <TextView
                             android:id="@+id/userName"
@@ -76,17 +78,18 @@
                         android:layout_marginTop="10dp">
 
                         <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
                             android:contentDescription="phone_icon"
-                            android:scaleType="centerCrop"/>
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/call_icon" />
 
                         <TextView
                             android:id="@+id/userContact"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
-                            android:textSize="20sp"
+                            android:textSize="16sp"
                             android:paddingLeft="5dp"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -153,7 +156,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="@string/notification"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat

@@ -41,25 +41,61 @@
                     android:id="@+id/visitDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/_8_aug_2023" />
+                    android:text="@string/_8_aug_2023"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/visitInTime"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/_7_46_pm" />
+                        android:gravity="center_vertical">
 
-                    <TextView
-                        android:id="@+id/visitOutTime"
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/in_time_icon" />
+
+                        <TextView
+                            android:id="@+id/visitInTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="5dp"
+                            android:text="@string/_7_46_pm"
+                            android:textColor="@color/textColorLight"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="14dp"
-                        android:text="@string/_8_00_pm" />
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/out_time_icon" />
+
+                        <TextView
+                            android:id="@+id/visitOutTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="5dp"
+                            android:text="@string/_8_00_pm"
+                            android:textColor="@color/textColorLight"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 

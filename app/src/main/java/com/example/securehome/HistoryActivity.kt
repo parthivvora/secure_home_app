@@ -1,13 +1,15 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.securehome
 
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.securehome.dataModel.UserDataModel
@@ -19,6 +21,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
+@Suppress("DEPRECATION")
 class HistoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHistoryBinding
     private lateinit var visitorUserList: ArrayList<VisitorUserData>
@@ -38,7 +41,7 @@ class HistoryActivity : AppCompatActivity() {
             finish()
         }
 
-        visitorUserList = arrayListOf<VisitorUserData>()
+        visitorUserList = arrayListOf()
         auth = FirebaseAuth.getInstance()
         if (auth.currentUser == null) {
             startActivity(Intent(this@HistoryActivity, LoginActivity::class.java))
@@ -67,9 +70,10 @@ class HistoryActivity : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val user = dataSnapshot.getValue(UserDataModel::class.java)
                 user?.let {
-                    val userNumber = user.contact
-                    userNumber?.let {
-                        fetchVisitors(userNumber)
+                    val flatNo = user.flatNo
+                    val buildingNo = user.buildingNo
+                    flatNo?.let {
+                        fetchVisitors(flatNo, buildingNo)
                     }
                 }
             }
@@ -84,22 +88,19 @@ class HistoryActivity : AppCompatActivity() {
         })
     }
 
-    private fun fetchVisitors(userNumber: String) {
+    private fun fetchVisitors(flatNo: String, buildingNo: String?) {
         val visitorsRef = FirebaseDatabase.getInstance().getReference("visitor")
-        visitorsRef.orderByChild("mobile").equalTo(userNumber)
+        visitorsRef.orderByChild("flatNo").equalTo(flatNo)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     progressDialog.dismiss()
                     for (visitorSnapshot in dataSnapshot.children) {
                         val visitorData = visitorSnapshot.getValue(VisitorUserData::class.java)
-//                        if (visitorData!!.entryDate == "11/02/2024") {
-//                            Toast.makeText(this@HistoryActivity, "Yes", Toast.LENGTH_SHORT).show()
-//                        }
-//                        else{
-//                            Toast.makeText(this@HistoryActivity, "No", Toast.LENGTH_SHORT).show()
-//                        }
-                        visitorUserList.add(visitorData!!)
+                        if (visitorData!!.flatNo == flatNo && visitorData.buildingName == buildingNo) {
+                            visitorUserList.add(visitorData)
+                        }
                     }
+                    visitorUserList.sortByDescending { it.entryDate }
                     try {
                         binding.historyDataRecyclerView.layoutManager = LinearLayoutManager(
                             this@HistoryActivity,
@@ -151,6 +152,7 @@ class HistoryActivity : AppCompatActivity() {
             })
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         super.onBackPressed()
         startActivity(Intent(this@HistoryActivity, MainActivity::class.java))

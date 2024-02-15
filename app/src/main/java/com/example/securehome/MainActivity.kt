@@ -11,14 +11,16 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.securehome.dataModel.UserDataModel
 import com.example.securehome.databinding.ActivityMainBinding
+import com.example.securehome.helperClass.SharedPreferencesManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
-    private lateinit var homeBinding: ActivityMainBinding;
+    private lateinit var homeBinding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var userId: String
 
@@ -41,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this@MainActivity, HistoryActivity::class.java))
         }
         homeBinding.customMenu.notification.setOnClickListener {
-            startActivity(Intent(this@MainActivity, ProfileActivity::class.java))
+            startActivity(Intent(this@MainActivity, NotificationActivity::class.java))
         }
         homeBinding.customMenu.privacyPolicy.setOnClickListener {
             startActivity(Intent(this@MainActivity, PrivacyPolicyActivity::class.java))
@@ -51,6 +53,8 @@ class MainActivity : AppCompatActivity() {
         }
         homeBinding.customMenu.logout.setOnClickListener {
             auth.signOut()
+            val sharedPreferencesManager = SharedPreferencesManager(this@MainActivity)
+            sharedPreferencesManager.clearUserId()
             startActivity(Intent(this@MainActivity, LoginActivity::class.java))
         }
 
@@ -86,12 +90,17 @@ class MainActivity : AppCompatActivity() {
                         val userContact = user.contact
                         homeBinding.customMenu.userName.text = userName
                         homeBinding.customMenu.userContact.text = userContact
-                        Glide.with(this@MainActivity).load(user.image).diskCacheStrategy(
-                            DiskCacheStrategy.ALL
-                        ).into(homeBinding.customMenu.userImage)
+                        if (!user.image.isNullOrEmpty()) {
+                            Glide.with(this@MainActivity)
+                                .load(user.image)
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .into(homeBinding.customMenu.userImage)
+                        } else {
+                            homeBinding.customMenu.userImage.setImageResource(R.drawable.user_profile_avatar)
+                        }
                     } else {
                         Toast.makeText(
-                            this@MainActivity, "User data is null", Toast.LENGTH_SHORT
+                            this@MainActivity, "User data is not found", Toast.LENGTH_SHORT
                         ).show()
                     }
                 } else {
@@ -108,6 +117,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         if (homeBinding.container.isDrawerOpen(GravityCompat.START)) {
             homeBinding.container.close()

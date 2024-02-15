@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.securehome
 
 import android.app.ProgressDialog
@@ -6,11 +8,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.securehome.dataModel.UserDataModel
 import com.example.securehome.databinding.ActivityProfileBinding
 import com.example.securehome.helperClass.SharedPreferencesManager
@@ -22,6 +24,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
+@Suppress("DEPRECATION")
 class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
     private lateinit var uri: Uri
@@ -49,11 +52,11 @@ class ProfileActivity : AppCompatActivity() {
 
         getUserProfileData(userId)
 
-        val galleryImage = registerForActivityResult(ActivityResultContracts.GetContent(),
-            ActivityResultCallback {
-                binding.userProfileImage.setImageURI(it)
-                uri = it!!
-            })
+        val galleryImage = registerForActivityResult(ActivityResultContracts.GetContent()
+        ) {
+            binding.userProfileImage.setImageURI(it)
+            uri = it!!
+        }
 
         binding.select.setOnClickListener {
             galleryImage.launch("image/*")
@@ -64,6 +67,7 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
+    // Upload image in Firebase Storage
     private fun uploadImage() {
         progressDialog.show()
         val imageName = "profile_image_${System.currentTimeMillis()}.jpg"
@@ -90,6 +94,7 @@ class ProfileActivity : AppCompatActivity() {
             }
     }
 
+    // Update image in Real time database using userId
     private fun updateProfileInDatabase(userId: String, imageUrl: String) {
         val userRef = database.child("user").child(userId)
         userRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -97,10 +102,9 @@ class ProfileActivity : AppCompatActivity() {
                 val userProfile = snapshot.getValue(UserDataModel::class.java)
                 val updatedProfile = userProfile?.copy(image = imageUrl)
                 userRef.setValue(updatedProfile)
-
                 Toast.makeText(
                     this@ProfileActivity,
-                    "Profile updated successfully...!",
+                    "Your profile image is uploaded...!",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -111,7 +115,7 @@ class ProfileActivity : AppCompatActivity() {
         })
     }
 
-    //    Update user profile data
+    // Update user profile data
     private fun updateUserProfile(id: String?) {
         val name = binding.updateName.text.toString()
         val contact = binding.updateContact.text.toString()
@@ -157,7 +161,7 @@ class ProfileActivity : AppCompatActivity() {
         })
     }
 
-    //    Get User profile data
+    // Get User profile data
     private fun getUserProfileData(id: String?) {
         val database = FirebaseDatabase.getInstance().getReference("user").child(id.toString())
         database.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -165,13 +169,19 @@ class ProfileActivity : AppCompatActivity() {
                 if (snapshot.exists()) {
                     val user = snapshot.getValue(UserDataModel::class.java)
                     if (user != null) {
-                        val userName = user.name
-                        val userContact = user.contact
-                        binding.updateName.setText(userName)
-                        binding.updateContact.setText(userContact)
+                        binding.updateName.setText(user.name)
+                        binding.updateContact.setText(user.contact)
+                        if (!user.image.isNullOrEmpty()) {
+                            Glide.with(this@ProfileActivity)
+                                .load(user.image)
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .into(binding.userProfileImage)
+                        } else {
+                            binding.userProfileImage.setImageResource(R.drawable.user_profile_avatar_black)
+                        }
                     } else {
                         Toast.makeText(
-                            this@ProfileActivity, "User data is null", Toast.LENGTH_SHORT
+                            this@ProfileActivity, "User data is not found", Toast.LENGTH_SHORT
                         ).show()
                     }
                 } else {
@@ -188,6 +198,11 @@ class ProfileActivity : AppCompatActivity() {
         })
     }
 
+
+    @Deprecated(
+        "Deprecated in Java",
+        ReplaceWith("super.onBackPressed()", "androidx.appcompat.app.AppCompatActivity")
+    )
     override fun onBackPressed() {
         super.onBackPressed()
     }

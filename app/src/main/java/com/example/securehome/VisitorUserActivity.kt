@@ -8,6 +8,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.example.securehome.databinding.ActivityVisitorUserBinding
 
+@Suppress("DEPRECATION")
 class VisitorUserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityVisitorUserBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +51,7 @@ class VisitorUserActivity : AppCompatActivity() {
         binding.remarks.text = remark
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         super.onBackPressed()
         startActivity(Intent(this@VisitorUserActivity, VisitorActivity::class.java))

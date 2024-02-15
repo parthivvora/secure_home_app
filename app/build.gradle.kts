@@ -49,7 +49,7 @@ dependencies {
     implementation("io.github.chaosleung:pinview:1.4.4")
     implementation ("com.google.android.material:material:1.11.0")
     implementation ("com.google.android.material:material:1.11.0")
-//    Firebase
+// Firebase
     implementation("com.google.firebase:firebase-auth:22.3.1")
     implementation("com.google.firebase:firebase-database-ktx:20.3.0")
     implementation("com.google.firebase:firebase-storage:20.3.0")
@@ -59,6 +59,6 @@ dependencies {
     implementation ("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation ("androidx.navigation:navigation-ui-ktx:2.7.7")
     implementation ("id.zelory:compressor:3.0.1")
-    implementation ("com.github.bumptech.glide:glide:4.11.0")
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.11.0")
+    implementation("com.github.bumptech.glide:glide:4.11.0")
+    annotationProcessor("com.github.bumptech.glide:annotations:4.11.0")
 }

@@ -29,13 +29,7 @@
         tools:targetApi="31">
         <activity
             android:name=".NotificationActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".HistoryUserActivity"
             android:exported="false" />
@@ -74,7 +68,10 @@
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Base.Theme.SecureHome">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <meta-data

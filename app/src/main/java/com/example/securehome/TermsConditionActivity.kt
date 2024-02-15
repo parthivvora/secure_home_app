@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.example.securehome.databinding.ActivityTermsConditionBinding
 
+@Suppress("DEPRECATION")
 class TermsConditionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTermsConditionBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,6 +22,7 @@ class TermsConditionActivity : AppCompatActivity() {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         super.onBackPressed()
         startActivity(Intent(this@TermsConditionActivity, MainActivity::class.java))

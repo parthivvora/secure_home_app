@@ -2,6 +2,7 @@ package com.example.securehome
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
@@ -25,18 +26,7 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-//        val image= intent.extras?.getInt("image")
-//        val date= intent.extras?.getString("date")
-//        val inTime= intent.extras?.getString("inTime")
-//        val outTime= intent.extras?.getString("outTime")
-//
-//        Log.d("getDataFromIntent", "image: $image")
-//        Log.d("getDataFromIntent", "date: $date")
-//        Log.d("getDataFromIntent", "inTime: $inTime")
-//        Log.d("getDataFromIntent", "outTime: $outTime")
-
         auth = FirebaseAuth.getInstance()
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true)
 
         name = findViewById(R.id.userName)
         email = findViewById(R.id.email)
@@ -60,7 +50,7 @@ class RegisterActivity : AppCompatActivity() {
         val flatNo = flatNo.text.toString()
 
         if (name.isEmpty() || contact.isEmpty() || buildingNo.isEmpty() || flatNo.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Please, Enter all details ...!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@RegisterActivity, "Please, Enter all details ...!", Toast.LENGTH_SHORT).show()
         } else {
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
@@ -71,7 +61,7 @@ class RegisterActivity : AppCompatActivity() {
                 }
                 .addOnFailureListener { err ->
                     Toast.makeText(
-                        this,
+                        this@RegisterActivity,
                         err.message,
                         Toast.LENGTH_SHORT
                     ).show()
@@ -88,29 +78,34 @@ class RegisterActivity : AppCompatActivity() {
         buildingNo: String,
         flatNo: String
     ) {
-        val database = FirebaseDatabase.getInstance()
-        val dbRef = database.getReference("user")
-        val user = UserDataModel(
-            id,
-            name,
-            email,
-            password,
-            contact,
-            buildingNo,
-            flatNo
-        )
-        dbRef.child(id).setValue(user)
-            .addOnCompleteListener {
-                Toast.makeText(this, "Data Inserted...!", Toast.LENGTH_LONG).show()
-                startActivity(Intent(this, LoginActivity::class.java))
-            }
-            .addOnFailureListener { err ->
-                Toast.makeText(this, "Error ${err.message}", Toast.LENGTH_LONG).show()
-            }
+        try {
+            val dbRef = FirebaseDatabase.getInstance().getReference("user")
+            val user = UserDataModel(
+                id,
+                name,
+                email,
+                password,
+                contact,
+                buildingNo,
+                flatNo
+            )
+            dbRef.child(id).setValue(user)
+                .addOnCompleteListener {
+                    Toast.makeText(this@RegisterActivity, "You are successfully registered...!", Toast.LENGTH_LONG).show()
+                    startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
+                }
+                .addOnFailureListener { err ->
+                    Toast.makeText(this@RegisterActivity, "Register failed ${err.message}", Toast.LENGTH_LONG).show()
+                    Log.d("Register user error in function", "saveUserData: ${err.message}")
+                }
+        }
+        catch (e:Exception){
+            Log.d("Register user error", "saveUserData: ${e.message}")
+        }
     }
 
-    fun navigateLogin(view: View) {
-        startActivity(Intent(this, LoginActivity::class.java))
+    fun navigateLogin() {
+        startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
         finish()
     }
 }

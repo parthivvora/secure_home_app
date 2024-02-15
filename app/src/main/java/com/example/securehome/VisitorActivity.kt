@@ -1,11 +1,13 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.securehome
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -31,8 +33,7 @@ class VisitorActivity : AppCompatActivity() {
     private lateinit var userId: String
     private lateinit var backBtn: ImageView
     private lateinit var noDataTextView: TextView
-    private lateinit var progressBar: ProgressBar
-    private lateinit var loadingTextView: TextView
+    private lateinit var progressDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +41,6 @@ class VisitorActivity : AppCompatActivity() {
 
         backBtn = findViewById(R.id.backBtn)
         noDataTextView = findViewById(R.id.noDataTextView)
-        progressBar = findViewById(R.id.progressBar)
-        loadingTextView = findViewById(R.id.loadingTextView)
 
         backBtn.setOnClickListener {
             startActivity(Intent(this@VisitorActivity, MainActivity::class.java))
@@ -51,31 +50,39 @@ class VisitorActivity : AppCompatActivity() {
         visitorUserList = arrayListOf()
         visitorDataRecyclerView = findViewById(R.id.visitorDataRecyclerView)
 
+        progressDialog = ProgressDialog(this@VisitorActivity)
+        progressDialog.setMessage("Loading...")
+        progressDialog.setCancelable(false)
+        progressDialog.show()
+
         auth = FirebaseAuth.getInstance()
         if (auth.currentUser == null) {
             startActivity(Intent(this@VisitorActivity, LoginActivity::class.java))
             finish()
         } else {
-            Log.d("visitor activity user id", "onStart: " + auth.currentUser!!.uid)
             userId = auth.currentUser!!.uid
             getVisitorData(userId)
         }
     }
 
+    // Get user information using user id
     private fun getVisitorData(userId: String) {
         val usersRef = FirebaseDatabase.getInstance().getReference("user").child(userId)
         usersRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                progressDialog.dismiss()
                 val user = dataSnapshot.getValue(UserDataModel::class.java)
                 user?.let {
-                    val userNumber = user.contact
-                    userNumber?.let {
-                        fetchVisitors(userNumber)
+                    val flatNo = user.flatNo
+                    val buildingNo = user.buildingNo
+                    flatNo?.let {
+                        fetchVisitors(flatNo, buildingNo)
                     }
                 }
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
+                progressDialog.dismiss()
                 Toast.makeText(
                     this@VisitorActivity,
                     "Database error: ${databaseError.message}",
@@ -85,22 +92,19 @@ class VisitorActivity : AppCompatActivity() {
         })
     }
 
-    private fun fetchVisitors(userNumber: String) {
+    // Get visitor information using flat no
+    private fun fetchVisitors(flatNo: String, buildingNo: String?) {
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         val currentDate = Date()
         val todayDate = dateFormat.format(currentDate)
-        progressBar.visibility = View.VISIBLE
-        loadingTextView.visibility = View.VISIBLE
 
         val visitorsRef = FirebaseDatabase.getInstance().getReference("visitor")
-        visitorsRef.orderByChild("mobile").equalTo(userNumber)
+        visitorsRef.orderByChild("flatNo").equalTo(flatNo)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    progressBar.visibility = View.GONE
-                    loadingTextView.visibility = View.GONE
                     for (visitorSnapshot in dataSnapshot.children) {
                         val visitorData = visitorSnapshot.getValue(VisitorUserData::class.java)
-                        if (visitorData!!.entryDate == todayDate) {
+                        if (visitorData!!.entryDate == todayDate && visitorData.buildingName == buildingNo) {
                             visitorUserList.add(visitorData)
                             try {
                                 visitorDataRecyclerView.layoutManager = LinearLayoutManager(
@@ -147,8 +151,6 @@ class VisitorActivity : AppCompatActivity() {
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
-                    progressBar.visibility = View.GONE
-                    loadingTextView.visibility = View.GONE
                     Toast.makeText(
                         this@VisitorActivity,
                         "Database error: ${databaseError.message}",

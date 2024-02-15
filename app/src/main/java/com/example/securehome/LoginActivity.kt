@@ -1,17 +1,13 @@
 package com.example.securehome
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.securehome.helperClass.SharedPreferencesManager
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 
 class LoginActivity : AppCompatActivity() {
 
@@ -23,9 +19,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
         auth = FirebaseAuth.getInstance()
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true)
 
         email = findViewById(R.id.loginEmail)
         password = findViewById(R.id.loginPassword)
@@ -33,17 +27,6 @@ class LoginActivity : AppCompatActivity() {
 
         signInBtn.setOnClickListener {
             loginUser()
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        auth = FirebaseAuth.getInstance()
-        if (auth.currentUser == null) {
-            Log.d("ZZZ", "onStart: " + auth.currentUser)
-            Toast.makeText(this, "Logout ...!", Toast.LENGTH_SHORT).show()
-        } else {
-            Log.d("ZZZ", "onStart: " + auth.currentUser!!.uid)
         }
     }
 
@@ -58,9 +41,9 @@ class LoginActivity : AppCompatActivity() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val id = auth.currentUser?.uid ?: ""
-                        Log.d("id", "User id = $id")
-                        val sharedPreferencesManager=SharedPreferencesManager(this)
+                        val sharedPreferencesManager = SharedPreferencesManager(this@LoginActivity)
                         sharedPreferencesManager.saveUserId(id)
+
                         startActivity(Intent(this, MainActivity::class.java))
                         finish()
                     } else {
@@ -70,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    fun navigateRegister(view: View) {
+    fun navigateRegister() {
         startActivity(Intent(this, RegisterActivity::class.java))
         finish()
     }
