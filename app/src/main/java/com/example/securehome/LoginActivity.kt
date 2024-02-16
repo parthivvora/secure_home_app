@@ -3,6 +3,7 @@ package com.example.securehome
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.securehome.helperClass.SharedPreferencesManager
@@ -15,6 +16,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var email: TextInputEditText
     private lateinit var password: TextInputEditText
     private lateinit var signInBtn: Button
+    private lateinit var signupBtn: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,9 +26,14 @@ class LoginActivity : AppCompatActivity() {
         email = findViewById(R.id.loginEmail)
         password = findViewById(R.id.loginPassword)
         signInBtn = findViewById(R.id.signInBtn)
+        signupBtn = findViewById(R.id.signupBtn)
 
         signInBtn.setOnClickListener {
             loginUser()
+        }
+        signupBtn.setOnClickListener {
+            startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
+            finish()
         }
     }
 
@@ -51,10 +58,5 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
         }
-    }
-
-    fun navigateRegister() {
-        startActivity(Intent(this, RegisterActivity::class.java))
-        finish()
     }
 }

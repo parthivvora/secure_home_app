@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         auth = FirebaseAuth.getInstance()
         if (auth.currentUser == null) {
-            startActivity(Intent(this, LoginActivity::class.java))
+            startActivity(Intent(this@MainActivity, LoginActivity::class.java))
             finish()
         } else {
             Log.d("ZZZ", "onStart: " + auth.currentUser!!.uid)

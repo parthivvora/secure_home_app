@@ -36,4 +36,18 @@
     <string name="_11_aug_2023_10_55_am">11 aug 2023 10:55 AM</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="ic_arrow_down_icon">ic_arrow_down_icon</string>
+
+    <string-array name="building_name">
+        <item>A-1</item>
+        <item>A-2</item>
+        <item>B-1</item>
+        <item>B-2</item>
+        <item>C-1</item>
+        <item>C-2</item>
+        <item>D-1</item>
+        <item>D-2</item>
+        <item>E-1</item>
+        <item>E-2</item>
+    </string-array>
 </resources>

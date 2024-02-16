@@ -3,8 +3,10 @@ package com.example.securehome
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.securehome.dataModel.UserDataModel
@@ -17,9 +19,11 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var email: TextInputEditText
     private lateinit var password: TextInputEditText
     private lateinit var contact: TextInputEditText
-    private lateinit var buildingNo: TextInputEditText
     private lateinit var flatNo: TextInputEditText
     private lateinit var signupBtn: Button
+    private lateinit var signInBtn: TextView
+    private lateinit var autoCompleteTextView: AutoCompleteTextView
+    private lateinit var buildingNo: String
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,12 +36,26 @@ class RegisterActivity : AppCompatActivity() {
         email = findViewById(R.id.email)
         password = findViewById(R.id.password)
         contact = findViewById(R.id.contact)
-        buildingNo = findViewById(R.id.buildingName)
         flatNo = findViewById(R.id.flatNo)
         signupBtn = findViewById(R.id.signupBtn)
+        signInBtn = findViewById(R.id.signInBtn)
+        autoCompleteTextView = findViewById(R.id.autoCompleteTextView)
+
+        // Select building no using Dropdown menu
+        val languages = resources.getStringArray(R.array.building_name)
+        val arrayAdapter = ArrayAdapter(this, R.layout.building_no_dropdown, languages)
+        autoCompleteTextView.setAdapter(arrayAdapter)
+        autoCompleteTextView.setOnItemClickListener { parent, _, position, _ ->
+            buildingNo = parent.getItemAtPosition(position).toString()
+        }
 
         signupBtn.setOnClickListener {
             registerUser()
+        }
+
+        signInBtn.setOnClickListener {
+            startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
+            finish()
         }
     }
 
@@ -46,7 +64,6 @@ class RegisterActivity : AppCompatActivity() {
         val email = email.text.toString()
         val password = password.text.toString()
         val contact = contact.text.toString()
-        val buildingNo = buildingNo.text.toString()
         val flatNo = flatNo.text.toString()
 
         if (name.isEmpty() || contact.isEmpty() || buildingNo.isEmpty() || flatNo.isEmpty() || email.isEmpty() || password.isEmpty()) {
@@ -91,7 +108,7 @@ class RegisterActivity : AppCompatActivity() {
             )
             dbRef.child(id).setValue(user)
                 .addOnCompleteListener {
-                    Toast.makeText(this@RegisterActivity, "You are successfully registered...!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@RegisterActivity, "You are successfully registered...!", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
                 }
                 .addOnFailureListener { err ->
@@ -102,10 +119,5 @@ class RegisterActivity : AppCompatActivity() {
         catch (e:Exception){
             Log.d("Register user error", "saveUserData: ${e.message}")
         }
-    }
-
-    fun navigateLogin() {
-        startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
-        finish()
     }
 }
