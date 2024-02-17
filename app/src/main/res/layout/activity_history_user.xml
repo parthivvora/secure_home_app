@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
@@ -12,7 +11,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:id="@+id/historyAppBar"
@@ -30,6 +29,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:contentDescription="@string/ic_arrow_back_black"
                     android:src="@drawable/ic_arrow_back" />
 
             </LinearLayout>
@@ -52,6 +52,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:contentDescription="@string/user_profile"
                         android:src="@drawable/user" />
                 </androidx.cardview.widget.CardView>
 
@@ -75,7 +76,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Name : "
+                        android:text="@string/name"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -84,7 +85,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/parthiv"
-                        android:textSize="20sp" />
+                        android:paddingStart="10dp"
+                        android:textSize="20sp"
+                        tools:ignore="RtlSymmetry" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -97,7 +100,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Contact : "
+                        android:text="@string/contact_"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -105,8 +108,10 @@
                         android:id="@+id/contact"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="9586968062"
-                        android:textSize="20sp" />
+                        android:paddingStart="10dp"
+                        android:text="@string/_9586968062"
+                        android:textSize="20sp"
+                        tools:ignore="RtlSymmetry" />
 
                 </LinearLayout>
 
@@ -120,7 +125,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Building No : "
+                        android:text="@string/building_no"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -128,8 +133,10 @@
                         android:id="@+id/buildingName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="E-1"
-                        android:textSize="20sp" />
+                        android:paddingStart="10dp"
+                        android:text="@string/e_1"
+                        android:textSize="20sp"
+                        tools:ignore="RtlSymmetry" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -142,7 +149,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Flat No : "
+                        android:text="@string/flat_no_"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -150,8 +157,10 @@
                         android:id="@+id/flatNo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="804"
-                        android:textSize="20sp" />
+                        android:paddingStart="10dp"
+                        android:text="@string/_804"
+                        android:textSize="20sp"
+                        tools:ignore="RtlSymmetry" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -164,7 +173,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Visit Date : "
+                        android:text="@string/visit_date"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -172,8 +181,10 @@
                         android:id="@+id/visitDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="16/02/2024"
-                        android:textSize="20sp" />
+                        android:paddingStart="10dp"
+                        android:text="@string/_16_02_2024"
+                        android:textSize="20sp"
+                        tools:ignore="RtlSymmetry" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -186,7 +197,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="In Time : "
+                        android:text="@string/in_time"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -194,8 +205,10 @@
                         android:id="@+id/inTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="10:00 PM"
-                        android:textSize="20sp" />
+                        android:paddingStart="10dp"
+                        android:text="@string/_10_00_pm"
+                        android:textSize="20sp"
+                        tools:ignore="RtlSymmetry" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -208,7 +221,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Out Time : "
+                        android:text="@string/out_time"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -216,8 +229,10 @@
                         android:id="@+id/outTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="out time"
-                        android:textSize="20sp" />
+                        android:paddingStart="10dp"
+                        android:text="@string/_10_00_pm"
+                        android:textSize="20sp"
+                        tools:ignore="RtlSymmetry" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -230,7 +245,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Person : "
+                        android:text="@string/person"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -238,8 +253,10 @@
                         android:id="@+id/person"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="4"
-                        android:textSize="20sp" />
+                        android:paddingStart="10dp"
+                        android:text="@string/_4"
+                        android:textSize="20sp"
+                        tools:ignore="RtlSymmetry" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -252,7 +269,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Category : "
+                        android:text="@string/category"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -260,8 +277,10 @@
                         android:id="@+id/category"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="4"
-                        android:textSize="20sp" />
+                        android:paddingStart="10dp"
+                        android:text="@string/doctor"
+                        android:textSize="20sp"
+                        tools:ignore="RtlSymmetry" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -274,7 +293,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Vehicle No : "
+                        android:text="@string/vehicle_no"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -282,8 +301,10 @@
                         android:id="@+id/vehicleNo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="GJ 05 JB 3581"
-                        android:textSize="20sp" />
+                        android:paddingStart="10dp"
+                        android:text="@string/gj_05_jb_3581"
+                        android:textSize="20sp"
+                        tools:ignore="RtlSymmetry" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -295,7 +316,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Remarks : "
+                        android:text="@string/remarks"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -303,7 +324,7 @@
                         android:id="@+id/remarks"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="This is the grocery delivery man and he is going to parthiv's home for delivery."
+                        android:text="@string/this_is_the_grocery_delivery_man_and_he_is_going_to_parthiv_s_home_for_delivery"
                         android:textSize="20sp"
                         android:paddingBottom="10dp" />
                 </LinearLayout>

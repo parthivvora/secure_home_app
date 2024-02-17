@@ -20,16 +20,21 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.time.LocalDate
+import java.util.Calendar
+import java.util.Locale
 
-@Suppress("DEPRECATION")
+@Suppress("DEPRECATION", "NAME_SHADOWING")
 class HistoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHistoryBinding
     private lateinit var visitorUserList: ArrayList<VisitorUserData>
     private lateinit var adapter: VisitorDataAdapter
     private lateinit var auth: FirebaseAuth
     private lateinit var userId: String
-    private lateinit var selectedDate: String
     private lateinit var progressDialog: ProgressDialog
+    private var selectedMonth: String = ""
+    private var currentMonth: Int = 0
+    private var currentYear: Int = 0
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,12 +57,42 @@ class HistoryActivity : AppCompatActivity() {
             getVisitorData(userId)
         }
 
-//        binding.historyDatePicker.setOnDateChangedListener { _, year, month, date ->
-//            val selectedMonth = month + 1
-//            selectedDate = "$date/$selectedMonth/$year"
-//            Log.d("Date select function", "onCreate: $selectedDate")
-//        }
+        // Get current year
+        currentYear = LocalDate.now().year
 
+        // Get Current, Previous and Next Month
+        val calendar = Calendar.getInstance()
+        currentMonth = calendar.get(Calendar.MONTH) + 1
+        val monthName = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US)
+        binding.currentMonth.text = monthName
+
+        binding.prevMonthBtn.setOnClickListener {
+            if (currentMonth > 1) {
+                currentMonth--
+                calendar.set(Calendar.MONTH, currentMonth - 1)
+                selectedMonth = String.format("%02d", currentMonth)
+                val monthName = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US)
+                binding.currentMonth.text = monthName
+            }
+            if (currentMonth == 1) {
+                binding.prevMonthBtn.isEnabled = false
+            }
+        }
+
+        binding.nextMonthBtn.setOnClickListener {
+            if (currentMonth >= 12) {
+                binding.nextMonthBtn.isEnabled = false
+            } else {
+                currentMonth++
+                calendar.set(Calendar.MONTH, currentMonth - 1)
+                selectedMonth = String.format("%02d", currentMonth)
+                val monthName = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US)
+                binding.currentMonth.text = monthName
+                binding.nextMonthBtn.isEnabled = true
+            }
+        }
+
+        // Progress dialog
         progressDialog = ProgressDialog(this@HistoryActivity)
         progressDialog.setMessage("Loading...")
         progressDialog.setCancelable(false)
@@ -94,6 +129,7 @@ class HistoryActivity : AppCompatActivity() {
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     progressDialog.dismiss()
+                    Log.d("month and year", "onDataChange: $selectedMonth $currentYear")
                     for (visitorSnapshot in dataSnapshot.children) {
                         val visitorData = visitorSnapshot.getValue(VisitorUserData::class.java)
                         if (visitorData!!.flatNo == flatNo && visitorData.buildingName == buildingNo) {

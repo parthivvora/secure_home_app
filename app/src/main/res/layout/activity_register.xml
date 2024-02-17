@@ -117,8 +117,9 @@
                             android:layout_height="match_parent"
                             android:backgroundTint="@color/white"
                             android:inputType="none"
-                            android:text="Select building no"
-                            android:textSize="18sp" />
+                            android:text="@string/select_building_no"
+                            android:textSize="18sp"
+                            tools:ignore="LabelFor" />
 
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>

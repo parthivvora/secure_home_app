@@ -30,6 +30,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var uri: Uri
     private val database = FirebaseDatabase.getInstance().reference
     private lateinit var progressDialog: ProgressDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_profile)

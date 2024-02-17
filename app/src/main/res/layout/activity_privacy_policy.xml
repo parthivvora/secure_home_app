@@ -10,7 +10,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             tools:context=".PrivacyPolicyActivity">
 
             <LinearLayout
@@ -21,7 +21,8 @@
                 android:paddingLeft="20dp"
                 android:paddingTop="15dp"
                 android:paddingRight="20dp"
-                android:paddingBottom="15dp">
+                android:paddingBottom="15dp"
+                tools:ignore="UseCompoundDrawables">
 
                 <ImageView
                     android:id="@+id/backBtn"
@@ -29,15 +30,17 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:rotation="180"
-                    android:src="@drawable/ic_arrow_forward" />
+                    android:src="@drawable/ic_arrow_forward"
+                    android:contentDescription="@string/ic_arrow_forward"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="20dp"
-                    android:text="Privacy Policy"
+                    android:text="@string/privacy_policy"
                     android:textColor="@color/black"
-                    android:textSize="24dp" />
+                    android:textSize="24sp"
+                    tools:ignore="RtlSymmetry"/>
 
             </LinearLayout>
 
@@ -55,7 +58,8 @@
                     android:layout_height="wrap_content"
                     android:text="This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You."
                     android:textColor="@color/ripple_color"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -63,7 +67,8 @@
                     android:layout_marginTop="24dp"
                     android:text="We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy. This Privacy Policy has been created with the help of the Privacy Policy."
                     android:textColor="@color/ripple_color"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -71,7 +76,8 @@
                     android:layout_marginTop="24dp"
                     android:text="The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural."
                     android:textColor="@color/ripple_color"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
 
             </LinearLayout>
 
@@ -88,9 +94,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Collecting and Using Your Personal Data"
+                    android:text="@string/collecting_and_using_your_personal_data"
                     android:textColor="@color/black"
-                    android:textSize="24dp" />
+                    android:textSize="24sp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -98,7 +104,8 @@
                     android:layout_marginTop="16dp"
                     android:text="While using Our Service, We may ask You to provide Us with certain personally identifiable information that can be used to contact or identify You. While using Our Service, We may ask You to provide Us with certain personally identifiable information that can be used to contact or identify You."
                     android:textColor="@color/ripple_color"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -106,7 +113,8 @@
                     android:layout_marginTop="24dp"
                     android:text="The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural."
                     android:textColor="@color/ripple_color"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
 
             </LinearLayout>
 
@@ -123,9 +131,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Security of Your Personal Data"
+                    android:text="@string/security_of_your_personal_data"
                     android:textColor="@color/black"
-                    android:textSize="24dp" />
+                    android:textSize="24sp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -133,7 +141,8 @@
                     android:layout_marginTop="16dp"
                     android:text="The security of Your Personal Data is important to Us, but remember that no method of transmission over the Internet, or method of electronic storage is 100% secure. While We strive to use commercially acceptable means to protect Your Personal Data, We cannot guarantee its absolute security."
                     android:textColor="@color/ripple_color"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
 
             </LinearLayout>
 
@@ -149,15 +158,15 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Contact Us"
+                    android:text="@string/contact_us"
                     android:textColor="@color/black"
-                    android:textSize="24dp" />
+                    android:textSize="24sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Email: securehome@gmail.com"
+                    android:text="@string/email_securehome_gmail_com"
                     android:textColor="@color/ripple_color"
                     android:textSize="16sp" />
 

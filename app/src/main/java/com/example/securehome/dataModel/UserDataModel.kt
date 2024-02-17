@@ -8,5 +8,6 @@ data class UserDataModel(
     var contact: String? = null,
     val buildingNo: String? = null,
     val flatNo: String? = null,
-    val image: String? = null
+    val image: String? = null,
+    var userToken: String? = null
 )

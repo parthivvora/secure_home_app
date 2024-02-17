@@ -3,6 +3,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -61,16 +62,18 @@
                             android:layout_width="16dp"
                             android:layout_height="16dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/in_time_icon" />
+                            android:src="@drawable/in_time_icon"
+                            android:contentDescription="@string/in_time_icon"/>
 
                         <TextView
                             android:id="@+id/visitInTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingLeft="5dp"
+                            android:paddingStart="5dp"
                             android:text="@string/_7_46_pm"
                             android:textColor="@color/textColorLight"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            tools:ignore="RtlSymmetry" />
 
                     </LinearLayout>
 
@@ -78,22 +81,25 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:paddingLeft="10dp">
+                        android:paddingStart="10dp"
+                        tools:ignore="RtlSymmetry">
 
                         <ImageView
                             android:layout_width="16dp"
                             android:layout_height="16dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/out_time_icon" />
+                            android:src="@drawable/out_time_icon"
+                            android:contentDescription="@string/out_time_icon"/>
 
                         <TextView
                             android:id="@+id/visitOutTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingLeft="5dp"
+                            android:paddingStart="5dp"
                             android:text="@string/_8_00_pm"
                             android:textColor="@color/textColorLight"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            tools:ignore="RtlSymmetry" />
 
                     </LinearLayout>
                 </LinearLayout>
