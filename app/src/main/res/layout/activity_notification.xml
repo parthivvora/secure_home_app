@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".NotificationActivity">
+        tools:context=".NotificationActivity"
+        android:background="@color/white">
 
         <!-- App bar -->
         <LinearLayout
@@ -15,18 +15,15 @@
             android:layout_height="wrap_content"
             android:background="@color/darkBlue"
             android:orientation="horizontal"
-            android:paddingLeft="20dp"
-            android:paddingTop="15dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="15dp">
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="15dp">
 
             <ImageView
                 android:id="@+id/backBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:contentDescription="@string/back_button_icon"
-                android:src="@drawable/ic_arrow_back" />
+                android:src="@drawable/ic_arrow_back"
+                android:contentDescription="@string/ic_arrow_back_icon"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -38,12 +35,44 @@
 
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/notificationDataRecyclerView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/notificationAppBar"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:paddingHorizontal="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/notificationTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/notificationDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/noNotificationText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"/>
+
+        </LinearLayout>
+
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/notificationDataRecyclerView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/notificationAppBar"-->
+<!--            android:layout_marginTop="20dp" />-->
 
     </RelativeLayout>
 </layout>

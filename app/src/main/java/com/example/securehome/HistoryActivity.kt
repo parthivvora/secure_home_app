@@ -2,6 +2,7 @@
 
 package com.example.securehome
 
+import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Build
@@ -36,6 +37,7 @@ class HistoryActivity : AppCompatActivity() {
     private var currentMonth: Int = 0
     private var currentYear: Int = 0
 
+    @SuppressLint("NotifyDataSetChanged")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +65,7 @@ class HistoryActivity : AppCompatActivity() {
         // Get Current, Previous and Next Month
         val calendar = Calendar.getInstance()
         currentMonth = calendar.get(Calendar.MONTH) + 1
+
         val monthName = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US)
         binding.currentMonth.text = monthName
 
@@ -73,6 +76,9 @@ class HistoryActivity : AppCompatActivity() {
                 selectedMonth = String.format("%02d", currentMonth)
                 val monthName = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US)
                 binding.currentMonth.text = monthName
+                getVisitorData(userId)
+                visitorUserList.clear()
+                binding.historyDataRecyclerView.adapter?.notifyDataSetChanged()
             }
             if (currentMonth == 1) {
                 binding.prevMonthBtn.isEnabled = false
@@ -88,6 +94,9 @@ class HistoryActivity : AppCompatActivity() {
                 selectedMonth = String.format("%02d", currentMonth)
                 val monthName = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US)
                 binding.currentMonth.text = monthName
+                getVisitorData(userId)
+                visitorUserList.clear()
+                binding.historyDataRecyclerView.adapter?.notifyDataSetChanged()
                 binding.nextMonthBtn.isEnabled = true
             }
         }
@@ -99,6 +108,7 @@ class HistoryActivity : AppCompatActivity() {
         progressDialog.show()
     }
 
+    // Fetch login user buildingNo and flatNo
     private fun getVisitorData(userId: String) {
         val usersRef = FirebaseDatabase.getInstance().getReference("user").child(userId)
         usersRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -123,57 +133,66 @@ class HistoryActivity : AppCompatActivity() {
         })
     }
 
+    // Fetch visitor information of login user using buildingNo and flatNo
     private fun fetchVisitors(flatNo: String, buildingNo: String?) {
         val visitorsRef = FirebaseDatabase.getInstance().getReference("visitor")
         visitorsRef.orderByChild("flatNo").equalTo(flatNo)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     progressDialog.dismiss()
-                    Log.d("month and year", "onDataChange: $selectedMonth $currentYear")
                     for (visitorSnapshot in dataSnapshot.children) {
                         val visitorData = visitorSnapshot.getValue(VisitorUserData::class.java)
                         if (visitorData!!.flatNo == flatNo && visitorData.buildingName == buildingNo) {
-                            visitorUserList.add(visitorData)
-                        }
-                    }
-                    visitorUserList.sortByDescending { it.entryDate }
-                    try {
-                        binding.historyDataRecyclerView.layoutManager = LinearLayoutManager(
-                            this@HistoryActivity,
-                            LinearLayoutManager.VERTICAL,
-                            false
-                        )
-                        binding.historyDataRecyclerView.setHasFixedSize(true)
-                        adapter = VisitorDataAdapter(visitorUserList, this@HistoryActivity)
-                        binding.historyDataRecyclerView.adapter = adapter
-                        adapter.setOnItemClickListener(object :
-                            VisitorDataAdapter.OnItemClickListener {
-                            override fun onItemClick(visitorData: VisitorUserData) {
-                                val intent =
-                                    Intent(
-                                        this@HistoryActivity,
-                                        HistoryUserActivity::class.java
-                                    )
-                                intent.putExtra("image", visitorData.image)
-                                intent.putExtra("name", visitorData.name)
-                                intent.putExtra("mobile", visitorData.mobile)
-                                intent.putExtra("buildingName", visitorData.buildingName)
-                                intent.putExtra("flatNo", visitorData.flatNo)
-                                intent.putExtra("person", visitorData.person)
-                                intent.putExtra("vehicleNo", visitorData.vehicleNo)
-                                intent.putExtra("entryDate", visitorData.entryDate)
-                                intent.putExtra("inTime", visitorData.inTime)
-                                intent.putExtra("outTime", visitorData.outTime)
-                                intent.putExtra("category", visitorData.category)
-                                intent.putExtra("remark", visitorData.remark)
-                                startActivity(intent)
+
+                            val date = "${
+                                visitorData.entryDate?.split("/")?.get(1)
+                            }/${visitorData.entryDate?.split("/")?.get(2)}"
+
+                            if (currentMonth < 10) {
+                                if (date == "0$currentMonth/$currentYear") {
+                                    visitorUserList.add(visitorData)
+                                    visitorUserList.sortByDescending { it.entryDate }
+                                    try {
+                                        binding.historyDataRecyclerView.layoutManager = LinearLayoutManager(
+                                            this@HistoryActivity,
+                                            LinearLayoutManager.VERTICAL,
+                                            false
+                                        )
+                                        binding.historyDataRecyclerView.setHasFixedSize(true)
+                                        adapter = VisitorDataAdapter(visitorUserList, this@HistoryActivity)
+                                        binding.historyDataRecyclerView.adapter = adapter
+                                        adapter.setOnItemClickListener(object :
+                                            VisitorDataAdapter.OnItemClickListener {
+                                            override fun onItemClick(visitorData: VisitorUserData) {
+                                                val intent =
+                                                    Intent(
+                                                        this@HistoryActivity,
+                                                        HistoryUserActivity::class.java
+                                                    )
+                                                intent.putExtra("image", visitorData.image)
+                                                intent.putExtra("name", visitorData.name)
+                                                intent.putExtra("mobile", visitorData.mobile)
+                                                intent.putExtra("buildingName", visitorData.buildingName)
+                                                intent.putExtra("flatNo", visitorData.flatNo)
+                                                intent.putExtra("person", visitorData.person)
+                                                intent.putExtra("vehicleNo", visitorData.vehicleNo)
+                                                intent.putExtra("entryDate", visitorData.entryDate)
+                                                intent.putExtra("inTime", visitorData.inTime)
+                                                intent.putExtra("outTime", visitorData.outTime)
+                                                intent.putExtra("category", visitorData.category)
+                                                intent.putExtra("remark", visitorData.remark)
+                                                startActivity(intent)
+                                            }
+                                        })
+                                    } catch (e: Exception) {
+                                        Log.d(
+                                            "Exception in Recyclerview parthiv",
+                                            "onDataChange: ${e.message}"
+                                        )
+                                    }
+                                }
                             }
-                        })
-                    } catch (e: Exception) {
-                        Log.d(
-                            "Exception in Recyclerview parthiv",
-                            "onDataChange: ${e.message}"
-                        )
+                        }
                     }
                 }
 
@@ -181,7 +200,7 @@ class HistoryActivity : AppCompatActivity() {
                     progressDialog.dismiss()
                     Toast.makeText(
                         this@HistoryActivity,
-                        "Database error: ${databaseError.message}",
+                        "Database error: $databaseError",
                         Toast.LENGTH_SHORT
                     ).show()
                 }

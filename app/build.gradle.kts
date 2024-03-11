@@ -49,6 +49,7 @@ dependencies {
     implementation("io.github.chaosleung:pinview:1.4.4")
     implementation ("com.google.android.material:material:1.11.0")
     implementation ("com.google.android.material:material:1.11.0")
+
 // Firebase
     implementation("com.google.firebase:firebase-auth:22.3.1")
     implementation("com.google.firebase:firebase-database-ktx:20.3.0")

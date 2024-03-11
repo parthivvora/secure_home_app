@@ -61,17 +61,16 @@
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
-            android:exported="false"
-            android:theme="@style/splash_theme" />
-        <activity
-            android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Base.Theme.SecureHome">
+            android:theme="@style/splash_theme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
 
         <service
             android:name=".FirebaseMessagingService"

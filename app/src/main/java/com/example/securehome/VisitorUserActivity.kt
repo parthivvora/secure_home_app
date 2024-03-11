@@ -8,7 +8,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.example.securehome.databinding.ActivityVisitorUserBinding
 
-@Suppress("DEPRECATION")
+
 class VisitorUserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityVisitorUserBinding
     override fun onCreate(savedInstanceState: Bundle?) {

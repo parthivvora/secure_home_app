@@ -81,6 +81,8 @@
     <string name="logout">Logout</string>
     <string name="in_time_icon">in_time_icon</string>
     <string name="out_time_icon">out_time_icon</string>
+    <string name="notification_title">Notification title</string>
+    <string name="notification_description">Notification description</string>
 
     <string-array name="building_name">
         <item>A-1</item>

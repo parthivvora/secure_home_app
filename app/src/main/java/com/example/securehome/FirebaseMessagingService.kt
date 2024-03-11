@@ -9,6 +9,7 @@ import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
 import android.os.Vibrator
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -19,7 +20,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
     private var mNotificationManager: NotificationManager? = null
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
-
+        val channelId = "932004"
         // playing audio and vibration
         val notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val r = RingtoneManager.getRingtone(applicationContext, notification)
@@ -33,13 +34,16 @@ class FirebaseMessagingService : FirebaseMessagingService() {
         val pattern = longArrayOf(100, 300, 300, 300)
         v.vibrate(pattern, -1)
 
-        val builder = NotificationCompat.Builder(this, "CHANNEL_ID")
+        val builder = NotificationCompat.Builder(this@FirebaseMessagingService, channelId)
         builder.setSmallIcon(R.drawable.app_icon_logo)
 
-        val resultIntent = Intent(this, MainActivity::class.java)
+        val resultIntent = Intent(this@FirebaseMessagingService, NotificationActivity::class.java)
+        resultIntent.putExtra("title", remoteMessage.notification?.title)
+        resultIntent.putExtra("body", remoteMessage.notification?.body)
+
         val pendingIntent =
             PendingIntent.getActivity(
-                this,
+                this@FirebaseMessagingService,
                 1,
                 resultIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
@@ -58,7 +62,6 @@ class FirebaseMessagingService : FirebaseMessagingService() {
             applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelId = "932004"
             val channel = NotificationChannel(
                 channelId,
                 "Vora Parthiv",
